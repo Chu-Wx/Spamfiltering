@@ -1,0 +1,17 @@
+def preprocess_data(data):
+    import spacy as sc
+    import string
+    nlp = sc.load("en_core_web_sm")
+    stopwords=nlp.Defaults.stop_words
+    List=[]
+    for i in data:
+      token = [token.text.lower() for token in nlp(i)]
+      List_without_sw=[j for j in token if not j in stopwords]
+      List.append(List_without_sw)
+
+    preprocessed_data = List
+    return preprocessed_data
+
+train_data = preprocess_data(train_texts)
+val_data = preprocess_data(val_texts)
+test_data = preprocess_data(test_texts)
